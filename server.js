@@ -8,14 +8,20 @@ app.use(express.json());
 
 const stripe = new Stripe(process.env.STRIPE_SECRET);
 
+const PORT = 8080;
+
+app.listen(PORT, () => {
+  console.info(`Server is running in port ${PORT}`);
+});
+
 app.post("/api/create-checkout-session", async (req, res) => {
   try {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
       line_items: req.body.items,
-      success_url: "https://https://furniture-storefront.onrender.com/success",
-      cancel_url: "https://https://furniture-storefront.onrender.com/cancel",
+      success_url: "https://furniture-storefront.onrender.com/success",
+      cancel_url: "https://furniture-storefront.onrender.com/cancel",
     });
 
     res.json({ url: session.url });
