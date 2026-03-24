@@ -10,10 +10,6 @@ const stripe = new Stripe(process.env.STRIPE_SECRET);
 
 const PORT = process.env.PORT || 8080;
 
-app.listen(PORT, () => {
-  console.info(`Server is running in port ${PORT}`);
-});
-
 app.post("/api/create-checkout-session", async (req, res) => {
   try {
     const session = await stripe.checkout.sessions.create({
@@ -29,6 +25,10 @@ app.post("/api/create-checkout-session", async (req, res) => {
     console.error("Stripe error:", error);
     res.status(500).json({ error: error.message });
   }
+});
+
+app.listen(PORT, () => {
+  console.info(`Server is running in port ${PORT}`);
 });
 
 // const stripe = new Stripe(process.env.STRIPE_SECRET);
