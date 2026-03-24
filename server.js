@@ -8,7 +8,7 @@ app.use(express.json());
 
 const stripe = new Stripe(process.env.STRIPE_SECRET);
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => {
   console.info(`Server is running in port ${PORT}`);
