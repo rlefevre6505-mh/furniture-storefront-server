@@ -1,38 +1,36 @@
 import express from "express";
-import cors from "cors";
+import Stripe from "stripe";
 import dotenv from "dotenv";
 
 const app = express();
 app.use(express.json());
-app.use(cors());
 
-// app.listen(3000, function () {
-//   console.log("Server is listening on port 3000");
-// });
+const stripe = new Stripe(process.env.STRIPE_SECRET);
 
-// app.get("/messages", function (request, response) {
-//   response.json({ message: "Hello, World!" });
-// });
+const PORT = 8080;
 
-app.get("/create-checkout-session", async function () {
-  const stripe = require("stripe")(process.env.STRIPE_SECRET);
+app.listen(PORT, () => {
+  console.info(`Server is running in port ${PORT}`);
+});
 
-  const session = await stripe.checkout.sessions.create({
-    ui_mode: "custom",
-    line_items: [
-      {
-        price_data: {
-          currency: "usd",
-          product_data: {
-            name: "T-shirt",
-          },
-          unit_amount: 2000,
-        },
-        quantity: 1,
+app.get("/", (request, response) =>
+  response.json({ message: "Welcome to my Stripe Sandbox server!" }),
+);
+
+app.post("/api/create-payment-intent", async (req, res) => {
+  try {
+    const { amount, currency } = req.body;
+
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount,
+      currency,
+      automatic_payment_methods: {
+        enabled: true,
       },
-    ],
-    mode: "payment",
-    // return_url: "https://example.com/return?session_id={CHECKOUT_SESSION_ID}",
-    return_url: "localhost:5173",
-  });
+    });
+
+    res.json({ clientSecret: paymentIntent.client_secret });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
