@@ -8,8 +8,6 @@ app.use(express.json());
 
 const stripe = new Stripe(process.env.STRIPE_SECRET);
 
-const PORT = process.env.PORT || 8080;
-
 app.post("/api/create-checkout-session", async (req, res) => {
   try {
     const session = await stripe.checkout.sessions.create({
@@ -26,6 +24,8 @@ app.post("/api/create-checkout-session", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => {
   console.info(`Server is running in port ${PORT}`);
