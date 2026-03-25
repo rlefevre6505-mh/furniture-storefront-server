@@ -17,14 +17,14 @@ app.post("/api/create-checkout-session", async (req, res) => {
       payment_method_types: ["card"],
       mode: "payment",
       line_items: req.body.items,
-        customer_creation: "always",
-      success_url: "https://furniture-storefront.onrender.com/success",
-      cancel_url: "https://furniture-storefront.onrender.com/cancel",
+      customer_creation: "always",
+      success_url: "https://furniture-storefront.vercel.app/success",
+      cancel_url: "https://furniture-storefront.vercel.app/cancel",
       //       success_url: "https://furniture-storefront.onrender.com",
       // cancel_url: "https://furniture-storefront.onrender.com",
     });
 
-console.log("Received items:", req.body.items);
+    console.log("Received items:", req.body.items);
 
     res.json({ url: session.url });
   } catch (error) {
@@ -37,8 +37,6 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.info(`Server is running in port ${PORT}`);
 });
-
-
 
 // const stripe = new Stripe(process.env.STRIPE_SECRET);
 
