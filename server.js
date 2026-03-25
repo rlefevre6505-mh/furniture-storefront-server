@@ -21,6 +21,8 @@ app.post("/api/create-checkout-session", async (req, res) => {
       cancel_url: "https://furniture-storefront.onrender.com/cancel",
     });
 
+console.log("Received items:", req.body.items);
+
     res.json({ url: session.url });
   } catch (error) {
     console.error("Stripe error:", error);
@@ -33,7 +35,6 @@ app.listen(PORT, () => {
   console.info(`Server is running in port ${PORT}`);
 });
 
-console.log("Received items:", req.body.items);
 
 
 // const stripe = new Stripe(process.env.STRIPE_SECRET);
