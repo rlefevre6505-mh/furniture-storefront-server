@@ -18,10 +18,10 @@ app.post("/api/create-checkout-session", async (req, res) => {
       mode: "payment",
       line_items: req.body.items,
         customer_creation: "always",
-      // success_url: "https://furniture-storefront.onrender.com/success",
-      // cancel_url: "https://furniture-storefront.onrender.com/cancel",
-            success_url: "https://furniture-storefront.onrender.com",
-      cancel_url: "https://furniture-storefront.onrender.com",
+      success_url: "https://furniture-storefront.onrender.com/success",
+      cancel_url: "https://furniture-storefront.onrender.com/cancel",
+      //       success_url: "https://furniture-storefront.onrender.com",
+      // cancel_url: "https://furniture-storefront.onrender.com",
     });
 
 console.log("Received items:", req.body.items);
