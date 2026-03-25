@@ -3,11 +3,11 @@ import Stripe from "stripe";
 import cors from "cors";
 import dotenv from "dotenv";
 
+dotenv.config();
 
 const app = express();
 app.use(express.json());
 app.use(cors());
-dotenv.config();
 
 const stripe = new Stripe(process.env.STRIPE_SECRET);
 
@@ -29,7 +29,6 @@ app.post("/api/create-checkout-session", async (req, res) => {
 });
 
 const PORT = process.env.PORT || 8080;
-
 app.listen(PORT, () => {
   console.info(`Server is running in port ${PORT}`);
 });
