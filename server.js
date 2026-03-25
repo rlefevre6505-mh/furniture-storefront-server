@@ -17,6 +17,7 @@ app.post("/api/create-checkout-session", async (req, res) => {
       payment_method_types: ["card"],
       mode: "payment",
       line_items: req.body.items,
+        customer_creation: "always",
       success_url: "https://furniture-storefront.onrender.com/success",
       cancel_url: "https://furniture-storefront.onrender.com/cancel",
     });
