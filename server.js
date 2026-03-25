@@ -33,6 +33,9 @@ app.listen(PORT, () => {
   console.info(`Server is running in port ${PORT}`);
 });
 
+console.log("Received items:", req.body.items);
+
+
 // const stripe = new Stripe(process.env.STRIPE_SECRET);
 
 // const PORT = 8080;
